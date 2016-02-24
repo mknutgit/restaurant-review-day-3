@@ -36,6 +36,40 @@
         {
             return $this->id;
         }
+
+        function save()
+        {
+            $GLOBALS['DB']->exec("INSERT INTO restaurants (name, cuisine_id) VALUES('{$this->getName()}', {$this->getCuisineId()});");
+            $this->id = $GLOBALS['DB']->lastInsertId();
+        }
+
+        function adjustPunctuation($name)
+        {
+            $search = "/(\')/g";
+            $replace = "/'";
+            $clean_name = preg_replace($search, $replace, $name);
+            return $clean_name;
+        }
+
+        static function getAll()
+        {
+            $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants;");
+            $restaurants = array();
+            foreach ($returned_restaurants as $restaurant)
+            {
+                $name = $restaurant['name'];
+                $cuisine_id = $restaurant['cuisine_id'];
+                $id = $restaurant['id'];
+                $new_restaurant = new Restaurant($name, $cuisine_id, $id);
+                array_push($restaurants, $new_restaurant);
+            }
+            return $restaurants;
+        }
+
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM restaurants;");
+        }
     }
 
 
