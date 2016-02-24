@@ -52,10 +52,10 @@
            $new_cuisine = new Cuisine($type, $id);
            $new_cuisine->save();
 
-           $name = "Wang's Grill";
+           $name = "Wangs Grill";
            $cuisine_id = $new_cuisine->getId();
            $new_restaurant = new Restaurant($name, $cuisine_id, $id);
-           $new_restaurant->setName($new_restaurant->adjustPunctuation($name));
+        //    $new_restaurant->setName($new_restaurant->adjustPunctuation($name));
            $new_restaurant->save();
 
            $result = Restaurant::getAll();
@@ -64,14 +64,23 @@
 
        }
 
-    //    function test_adjustPunctuation()
-    //    {
-    //        $name = "Wang's Grill";
-       //
-    //        $result = adjustPunctuation($name);
-       //
-    //        $this->assertEquals("Wang/'s Grill", $result);
-    //    }
+       function test_adjustPunctuation()
+       {
+           $type = "Chinese";
+           $id = null;
+           $new_cuisine = new Cuisine($type, $id);
+           $new_cuisine->save();
+
+           $name = "Wang's Grill and Matt's Burgers";
+           $cuisine_id = $new_cuisine->getId();
+           $new_restaurant = new Restaurant($name, $cuisine_id, $id);
+        //    $new_restaurant->setName($new_restaurant->adjustPunctuation($name));
+           $new_restaurant->save();
+
+           $result = Restaurant::getAll();
+
+           $this->assertEquals(["Wang's Grill and Matt's Burgers"], $result[0]->getName());
+       }
 
        function test_getAll()
        {

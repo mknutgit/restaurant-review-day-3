@@ -39,14 +39,17 @@
 
         function save()
         {
+        //Code breaks
+            $this->setName($this->adjustPunctuation($this->getName()));
             $GLOBALS['DB']->exec("INSERT INTO restaurants (name, cuisine_id) VALUES('{$this->getName()}', {$this->getCuisineId()});");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        //adjustPunctuation adds a backslash 
         function adjustPunctuation($name)
         {
-            $search = "/(\')/g";
-            $replace = "/'";
+            $search = "/(\')/";
+            $replace = "\'";
             $clean_name = preg_replace($search, $replace, $name);
             return $clean_name;
         }
