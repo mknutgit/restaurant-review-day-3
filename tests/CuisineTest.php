@@ -25,5 +25,16 @@
 
            $this->assertEquals($type, $result);
        }
+
+       function test_getId()
+       {
+           $type = "Chinese";
+           $id = 1;
+           $test_id = new Cuisine($type, $id);
+
+           $result = $test_id->getId();
+
+           $this->assertEquals(true, is_numeric($result));
+       }
    }
  ?>
