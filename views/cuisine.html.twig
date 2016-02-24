@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>All The Best Restaurants</title>
+</head>
+<body>
+    <h1>{{ cuisine.getType() }}</h1>
+
+    {% if restaurants is not empty %}
+        <p>See restaurants and their cuisines below:</p>
+        <ul>
+            {% for restaurant in restaurants %}
+                <li>{{ restaurant.getName }}</li>
+            {% endfor %}
+        </ul>
+   {% else %}
+     <p>There are no restaurants yet! Add a restaurant below.</p>
+   {% endif %}
+
+   <form action="/restaurant" method="post">
+       <input id="cuisine_id" type="hidden" name="cuisine_id" value="{{ cuisine.getId() }}">
+       <label for="name">Restaurant Name:</label>
+       <input id="name" name="name" type="text">
+       <button type="submit">Add Restaurant</button>
+   </form>
+
+<button><a href="/">Home</a></button>
+
+   <!-- <form action='/delete_categories' method='post'>
+       <button type='submit'>Delete Category List</button>
+   </form> -->
+
+</body>
+</html>
