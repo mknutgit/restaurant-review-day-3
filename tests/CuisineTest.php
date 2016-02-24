@@ -53,6 +53,20 @@
            $this->assertEquals($test_save, $result[0]);
        }
 
+       function test_Update()
+       {
+           $type = "China";
+           $id = null;
+           $test_cuisine = new Cuisine($type, $id);
+           $test_cuisine ->save();
+
+           $new_type = "Chinese";
+
+           $test_cuisine->update($new_type);
+
+           $this->assertEquals("Chinese", $test_cuisine->getType());
+       }
+       
        function test_getAll()
        {
            $type = "Chinese";

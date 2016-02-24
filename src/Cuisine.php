@@ -32,6 +32,12 @@
             $this->id= $GLOBALS['DB']->lastInsertID();
         }
 
+        function update($new_type)
+        {
+            $GLOBALS['DB']->exec("UPDATE cuisines SET type = '{$new_type}' WHERE id = {$this->getId()};");
+            $this->setType($new_type);
+        }
+
         static function getAll()
         {
             $returned_cuisines = $GLOBALS['DB']->query("SELECT * FROM cuisines;");
