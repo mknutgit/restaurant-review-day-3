@@ -31,6 +31,18 @@
            $this->assertEquals($name, $result);
        }
 
+       function test_getId()
+       {
+           $name = "Wang's Grill";
+           $cuisine_id = "Chinese";
+           $id = 1;
+           $test_restaurant = new Restaurant($name, $cuisine_id, $id);
+
+           $result = $test_restaurant->getId();
+
+           $this->assertEquals(true, is_numeric($result));
+       }
+
    }
 
 ?>
