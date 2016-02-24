@@ -32,6 +32,21 @@
             $this->id= $GLOBALS['DB']->lastInsertID();
         }
 
+        function getRestaurants()
+        {
+            $restaurants = array();
+            $returned_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants  WHERE cuisine_id = {$this->getId()}");
+            foreach($returned_restaurants as $restaurant) {
+                $name = $restaurant['name'];
+                $cuisine_id = $restaurant['cuisine_id'];
+                $id = $restaurant['id'];
+                $new_restaurant = new Restaurant($name, $cuisine_id, $id);
+                array_push($restaurants, $new_restaurant);
+            }
+
+            return $restaurants;
+        }
+
         function update($new_type)
         {
             $GLOBALS['DB']->exec("UPDATE cuisines SET type = '{$new_type}' WHERE id = {$this->getId()};");
@@ -55,6 +70,20 @@
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM cuisines;");
+        }
+
+        static function find($id)
+        {
+            $found_cuisine = null;
+            $cuisines = Cuisine::getAll();
+            foreach ($cuisines as $cuisine)
+            {
+                $cuisine_id = $cuisine->getId();
+                if ($cuisine_id == $id) {
+                    $found_cuisine = $cuisine;
+                }
+            }
+            return $found_cuisine;
         }
 
 

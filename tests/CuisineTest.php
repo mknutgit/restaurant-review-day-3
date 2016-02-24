@@ -66,7 +66,7 @@
 
            $this->assertEquals("Chinese", $test_cuisine->getType());
        }
-       
+
        function test_getAll()
        {
            $type = "Chinese";
@@ -94,6 +94,46 @@
            $result = Cuisine::getAll();
 
            $this->assertEquals([], $result);
+       }
+
+       function test_find()
+       {
+           $type = "Chinese";
+           $id = null;
+           $cuisine1 = new Cuisine($type, $id);
+           $cuisine1->save();
+
+           $type2 = "Indian";
+           $cuisine2 = new Cuisine($type2, $id);
+           $cuisine2->save();
+
+           $result = Cuisine::find($cuisine1->getId());
+
+           $this->assertEquals($cuisine1, $result);
+       }
+
+       function test_getRestaurants()
+       {
+           $type = "Chinese";
+           $id = null;
+           $test_cuisine = new Cuisine($type, $id);
+           $test_cuisine->save();
+
+           $test_cuisine_id = $test_cuisine->getId();
+
+           $name = "Noodle House";
+           $test_restaurant = new Restaurant($name, $test_cuisine_id, $id);
+           $test_restaurant->save();
+
+           $name2 = "China House";
+           $test_restaurant2 = new Restaurant($name2, $test_cuisine_id, $id);
+           $test_restaurant2->save();
+
+           $result = $test_cuisine->getRestaurants();
+
+           $this->assertEquals([$test_restaurant, $test_restaurant2], $result);
+
+
        }
 
 
