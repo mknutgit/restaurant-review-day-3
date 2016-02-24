@@ -39,13 +39,12 @@
 
         function save()
         {
-        //Code breaks
             $this->setName($this->adjustPunctuation($this->getName()));
             $GLOBALS['DB']->exec("INSERT INTO restaurants (name, cuisine_id) VALUES('{$this->getName()}', {$this->getCuisineId()});");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        //adjustPunctuation adds a backslash 
+        //adjustPunctuation funciton adds a backslash before any apostrophes in the restaurant name to prevent the save method from closing the name string too soon. It is necessary for tests to pass and for site to be functional.
         function adjustPunctuation($name)
         {
             $search = "/(\')/";

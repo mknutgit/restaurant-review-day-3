@@ -55,7 +55,6 @@
            $name = "Wangs Grill";
            $cuisine_id = $new_cuisine->getId();
            $new_restaurant = new Restaurant($name, $cuisine_id, $id);
-        //    $new_restaurant->setName($new_restaurant->adjustPunctuation($name));
            $new_restaurant->save();
 
            $result = Restaurant::getAll();
@@ -64,6 +63,7 @@
 
        }
 
+       //This test ensures stings containing apostrophes will be reflected correctly in the database.
        function test_adjustPunctuation()
        {
            $type = "Chinese";
@@ -74,12 +74,11 @@
            $name = "Wang's Grill and Matt's Burgers";
            $cuisine_id = $new_cuisine->getId();
            $new_restaurant = new Restaurant($name, $cuisine_id, $id);
-        //    $new_restaurant->setName($new_restaurant->adjustPunctuation($name));
            $new_restaurant->save();
 
            $result = Restaurant::getAll();
 
-           $this->assertEquals(["Wang's Grill and Matt's Burgers"], $result[0]->getName());
+           $this->assertEquals("Wang's Grill and Matt's Burgers", $result[0]->getName());
        }
 
        function test_getAll()

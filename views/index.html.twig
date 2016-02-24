@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>All The Best Restaurants</title>
+</head>
+<body>
+    <h1>Best Restaurants</h1>
+    <h3>Search for restaurants by cuisine or enter a new restaurant</p>
+
+
+    <form action="/cuisine" method="post">
+        <label for="type">Cuisine Type:</label>
+        <input id="type" name="type" type="text">
+        <button type="submit">Add Cuisine</button>
+    </form>
+
+    {% if cuisines is not empty %}
+        <p>See restaurants and their cuisines below:</p>
+        <ul>
+            {% for cuisine in cuisines %}
+                <li><a href="/cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
+            {% endfor %}
+        </ul>
+   {% else %}
+     <p>There are no cuisines yet!</p>
+   {% endif %}
+
+   <!-- <form action='/delete_categories' method='post'>
+       <button type='submit'>Delete Category List</button>
+   </form> -->
+
+</body>
+</html>
